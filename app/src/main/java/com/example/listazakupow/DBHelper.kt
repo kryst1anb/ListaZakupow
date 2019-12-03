@@ -18,7 +18,6 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
         internal const val COL_DATE = "date"
         internal const val COL_PRIORITY = "priority"
         internal const val COL_BOUGHT = "bought"
-
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -42,7 +41,6 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
     }
 
     val allProducts: MutableList<Product>
-
         @RequiresApi(Build.VERSION_CODES.O)
         get(){
             val query = "SELECT * FROM $TABLE_NAME ORDER BY $COL_PRIORITY DESC" //sortowanie listy najwazniejsze mniej wazne
@@ -81,7 +79,6 @@ class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null,
     fun addProduct(product:Product):Long{
         val db = this.writableDatabase
         val value = contentValuesOf()
-
 
         value.put(COL_NAME, product.name)
         value.put(COL_MAXPRICE, product.maxPrice)

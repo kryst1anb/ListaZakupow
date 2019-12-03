@@ -4,13 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +22,7 @@ class ProductListAdapter(val products: MutableList<Product>, val context:Context
     override fun getItemCount(): Int {
         return products.size
     }
+    var connector = DBHelper(context)
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -33,10 +32,8 @@ class ProductListAdapter(val products: MutableList<Product>, val context:Context
         holder.productPriorityText.text = product.priority.toString()
         holder.productMaxPriceText.text = product.maxPrice.toString()
         holder.productDateText.text = product.date.toString()
-       // holder.productBoughtText.text = product.bought.toInt()
 
         holder.productButtonDelete.setOnClickListener {
-            var connector = DBHelper(context)
             connector.deleteProduct(product.id)
             (context as? MainActivity)?.update()
         }

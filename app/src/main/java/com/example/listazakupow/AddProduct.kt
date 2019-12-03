@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_add_product.*
 import kotlinx.android.synthetic.main.fragment_add_product.view.*
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class AddProduct : Fragment() {
@@ -39,10 +37,8 @@ class AddProduct : Fragment() {
 
         val sdf = SimpleDateFormat("yyyy-MM-dd")
         val currentDate: String = sdf.format(Date())
-
         val name = set_name_product.text.toString()
         val maxPrice = set_price_product.text.toString().toFloat()
-
         val check = priority_group.checkedRadioButtonId
 
         var priority= when (check) {
@@ -52,13 +48,9 @@ class AddProduct : Fragment() {
         }
 
         val db = DBHelper(context!!)
-
         var product = Product(priority, name, maxPrice,currentDate,false)
-
         db.addProduct(product)
-
         Toast.makeText(context!!,"Added",Toast.LENGTH_SHORT).show()
-
         clearFields()
     }
 

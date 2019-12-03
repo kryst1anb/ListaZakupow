@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_products_list.*
+import androidx.fragment.app.Fragment as Fragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,8 +18,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val fragment = ProductsList.newInstance()
-        replaceFragment(fragment)
 
+        replaceFragment(fragment)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -44,16 +44,20 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    // odświeżenie widoku po usunieciu produktu
-    fun update()
-    {
-        Toast.makeText(this,"Usunięto pomyślnie", Toast.LENGTH_SHORT).show() //wypisanie informacji
+    fun update(){
         recyclerView.adapter = ProductListAdapter(dbConnect.allProducts, this)
+
+        /*Odświeżenie fragmentu przy kazdym wywołaniu przycisku DELETE*/
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentContainer, ProductsList.newInstance())
+        fragmentTransaction.commit()
+
+        Toast.makeText(this,"Successfully deleted", Toast.LENGTH_SHORT).show()
+
     }
 
-    override fun onResume() {
+    override fun onResume(){
         super.onResume()
         recyclerView.adapter = ProductListAdapter(dbConnect.allProducts, this)
     }
-
 }

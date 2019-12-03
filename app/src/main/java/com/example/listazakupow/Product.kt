@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.zip.DataFormatException
 
 @RequiresApi(Build.VERSION_CODES.O)
 class Product(var _priority: Int, var _name: String, var _maxPrice: Float, var _date: String, var _bought: Boolean = false, var _id:Long? = null) {
